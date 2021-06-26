@@ -12,6 +12,8 @@ class Venta{
         int dia;
         int cant;
         int monto;
+        int total;
+        int cantventas;
     public:
         Venta();
         ~Venta();
@@ -21,12 +23,16 @@ class Venta{
         void SetDia(int );
         void SetCantidad(int );
         void SetMonto(int );
+        void SetTotal(int );
+        void SetCantVentas(int );
 
         int GetAno();
         int GetMes();
         int GetDia();
         int GetCantidad();
         int GetMonto();
+        int GetTotal();
+        int GetCantVentas();
 };
 
 #endif

@@ -35,3 +35,52 @@ std::vector<std::string> fecha(std::string fecha1, char del){
 
     return arreglo;
 }
+
+std::vector<Venta> dia(std::vector<Venta> Ventas){
+    std::vector<Venta> V;
+    int monto=0;
+    int cont=1;
+    for(int i=0; i<=int(Ventas.size()); i++){
+        if(i!=0){
+            if(Ventas[i].GetAno()==Ventas[i-1].GetAno()){
+                if(Ventas[i].GetMes()==Ventas[i-1].GetMes()){
+                    if(Ventas[i].GetDia()==Ventas[i-1].GetDia()){
+                        monto=monto+Ventas[i].GetMonto()*Ventas[i].GetCantidad();
+                        cont++;
+                    }else{
+                        Ventas[i-1].SetTotal(monto);
+                        Ventas[i-1].SetCantVentas(cont);
+                        monto=Ventas[i].GetMonto();
+                        cont=1;
+                        V.push_back(Ventas[i-1]);
+                    }
+                }else{
+                    Ventas[i-1].SetTotal(monto);
+                    Ventas[i-1].SetCantVentas(cont);
+                    monto=Ventas[i].GetMonto();
+                    cont=1;
+                    V.push_back(Ventas[i-1]);
+                }
+            }else{
+                Ventas[i-1].SetTotal(monto);
+                Ventas[i-1].SetCantVentas(cont);
+                monto=Ventas[i].GetMonto();
+                cont=1;
+                V.push_back(Ventas[i-1]);
+            }
+        }else{
+            monto=Ventas[i].GetMonto();
+        }
+    }
+    return V;
+}
+
+int promVentas(std::vector<Venta> Ventas){
+    int total=0;
+    int cont=0;
+    for(int i=0; i<int(Ventas.size()); i++){
+        total=total+Ventas[i].GetTotal();
+        cont++;
+    }
+    return total/cont;
+}

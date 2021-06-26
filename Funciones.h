@@ -22,4 +22,8 @@ std::vector<std::string> ObtenerDatos(std::string fila);
 
 std::vector<std::string> fecha(std::string, char);
 
+std::vector<Venta> dia(std::vector<Venta>);
+
+int promVentas(std::vector<Venta>);
+
 #endif // FUNCIONES_H_INCLUDED
