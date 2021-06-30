@@ -95,11 +95,13 @@ int main(int argc, char** argv) {
             int CantxVenta = SumCantDias_xVentas(VentasDia, Sum_CantDias, cant_venta);
             std::cout << "la suma total de cantidad de dias por ventas(xy) es:" << CantxVenta << std::endl;
 
-            double resultado = Pendiente(Sum_CantDias, cantdias_cuad, dias_cuad, cant_venta, CantxVenta);
-            std::cout << "la pendiente es:" << resultado << std::endl;
+            double pendiente = Pendiente(Sum_CantDias, cantdias_cuad, dias_cuad, cant_venta, CantxVenta);
+            std::cout << "la pendiente es:" << pendiente << std::endl;
 
+            double intercepto = intercepcion(pendiente, cant_dias, total_ventas);
+            std::cout << "El intercepto es: " << intercepto << std::endl;
 
-
+            MostrarMinimo(pendiente, intercepto);
 
             std::cout << std::endl << "PROGRAMA EJECUTADO CORRECTAMENTE" << std::endl;
         }else{

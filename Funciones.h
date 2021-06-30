@@ -40,6 +40,10 @@ int SumCantDias_xVentas(std::vector<Venta>, int, int);
 
 double Pendiente(int, int, int, int, int);
 
+double intercepcion(double, double, double);
+
+void MostrarMinimo(double, double);
+
 /** Regresion lineal **/
 double PromSumCantDias(std::vector<Venta>);
 

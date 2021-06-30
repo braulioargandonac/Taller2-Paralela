@@ -127,18 +127,16 @@ double Pendiente(int Sum_CantDias, int cantdias_cuad, int dias_cuad, int cant_ve
     M = (CantxVenta - (((Sum_CantDias) * (cant_venta)) / 199)) / (cantdias_cuad - (dias_cuad) / 199);
     return M;
 }
-/*int PromVentas(std::vector<Venta> Ventas){
-    int total=0;
-    int cont=0;
-    for(int i=0; i<int(Ventas.size()); i++){
-        total=total+Ventas[i].GetTotal();
-        cont++;
-    }
-    std::cout<<"numerador: "<<total<< "  Denominador: "<<cont<<std::endl;
-    std::cout<< "total " <<Ventas.size() <<std::endl;
-    return total/cont;
-}*/
 
+double intercepcion(double pendiente, double cant_dias, double total_ventas){
+    double b = 0;
+    b = total_ventas - (pendiente * cant_dias);
+    return b;
+}
+
+void MostrarMinimo(double pendiente, double intercepto){
+    std::cout << "La formula para los minimos cuadrados es: " << "Y = " << pendiente << " * (Cantidad de dias)" << " - " << intercepto << std::endl;
+}
 
 /** Regresion lineal **/
 double PromSumCantDias(std::vector<Venta> Ventas){
