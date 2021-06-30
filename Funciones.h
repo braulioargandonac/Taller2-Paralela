@@ -8,6 +8,7 @@
 #include <fstream>
 #include <string>
 #include "Venta.h"
+#include <math.h>
 
 /**
  * Despliega los participantes del equipo de trabajo
@@ -24,6 +25,26 @@ std::vector<std::string> fecha(std::string, char);
 
 std::vector<Venta> dia(std::vector<Venta>);
 
-int promVentas(std::vector<Venta>);
+/*double PromVentas(std::vector<Venta>);*/
+
+double PromSumCantDias(std::vector<Venta>);
+
+double PromSumVentas(std::vector<Venta>);
+
+double SumCuadrado(std::vector<Venta>,double);
+
+long double SumCuadradoVentas(std::vector<Venta>, double );
+
+double MultSumas(std::vector<Venta>,double ,double );
+
+double covarianza (double , int );
+
+double Desviacion_Estandar(double , int );
+
+double calculob(double ,double );
+
+double calculoa(double , double , double );
+
+void printformula(double , double );
 
 #endif // FUNCIONES_H_INCLUDED

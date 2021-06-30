@@ -33,13 +33,14 @@ void Venta::SetMonto(int monto1){
     monto=monto1;
 }
 
-void Venta::SetTotal(int monto){
+void Venta::SetTotal(double monto){
     total=monto;
 }
 
 void Venta::SetCantVentas(int a){
     cantventas=a;
 }
+
 
 int Venta::GetAno(){
     return ano;
@@ -61,7 +62,7 @@ int Venta::GetMonto(){
     return monto;
 }
 
-int Venta::GetTotal(){
+double Venta::GetTotal(){
     return total;
 }
 

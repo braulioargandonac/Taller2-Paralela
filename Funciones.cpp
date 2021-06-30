@@ -69,18 +69,102 @@ std::vector<Venta> dia(std::vector<Venta> Ventas){
                 V.push_back(Ventas[i-1]);
             }
         }else{
-            monto=Ventas[i].GetMonto();
+            monto=Ventas[i].GetMonto()*Ventas[i].GetCantidad();
         }
     }
     return V;
 }
+double PromSumCantDias(std::vector<Venta> Ventas){
+    int cont=0;
+    double contaux = 0;
+    for(int i=0; i<int(Ventas.size()); i++){
+        cont++;
+        contaux=contaux + cont;
+    }
+    contaux = contaux/int(Ventas.size());
+    return contaux;
+}
 
-int promVentas(std::vector<Venta> Ventas){
+double PromSumVentas(std::vector<Venta> Ventas){
+    double total=0;
+    for(int i=0; i<int(Ventas.size()); i++){
+        total = total + Ventas[i].GetCantVentas();
+    }
+    total=total/int(Ventas.size());
+    return total;
+}
+
+/*int PromVentas(std::vector<Venta> Ventas){
     int total=0;
     int cont=0;
     for(int i=0; i<int(Ventas.size()); i++){
         total=total+Ventas[i].GetTotal();
         cont++;
     }
+    std::cout<<"numerador: "<<total<< "  Denominador: "<<cont<<std::endl;
+    std::cout<< "total " <<Ventas.size() <<std::endl;
     return total/cont;
+}*/
+
+double SumCuadrado(std::vector<Venta>Ventas, double promedio){
+    double contsum=0;
+    double aux=0;
+    for(int i=0; i<int(Ventas.size()); i++){
+        aux = i+1 - promedio;
+        aux = pow(aux,2);
+        contsum = contsum+aux;
+    }
+    return contsum;
+}
+
+long double SumCuadradoVentas(std::vector<Venta>Ventas, double promedio){
+    long double contsum=0;
+    double aux=0;
+    for(int i=0; i<int(Ventas.size()); i++){
+        aux=Ventas[i].GetCantVentas()-promedio;
+        aux = pow(aux,2);
+        contsum = contsum+aux;
+    }
+    return contsum;
+}
+
+double MultSumas(std::vector<Venta>Ventas, double promedio1, double promedio2){
+    double sum=0;
+    int aux = 0;
+    int aux2=0;
+    for(int i=0; i<int(Ventas.size()); i++){
+        aux = i+1 - promedio1;
+        aux2=Ventas[i].GetCantVentas()-promedio2;
+        sum = sum+(aux*aux2);
+    }
+    return sum;
+}
+
+double covarianza (double dato, int largo){
+    double aux=0;
+    aux= dato/largo;
+    return aux;
+}
+
+double Desviacion_Estandar(double sumprom, int largo){
+    double aux=0;
+    aux = sumprom/largo;
+    aux = sqrt(aux);
+    return aux;
+}
+
+double calculob(double covarianza,double desviacion){
+    double aux=0;
+    aux=covarianza/pow(desviacion,2);
+    return aux;
+}
+
+double calculoa(double prom1, double prom2, double calculob){
+    double aux=0;
+    aux= prom1 - (prom2*calculob);
+    return aux;
+}
+
+void printformula(double A, double B){
+    std::cout<<"La formula para la regresion lineal es: "<<std::endl<< "Y = " << A << " + " << B <<"* X (Cantidad de dias)"<<std::endl;
 }

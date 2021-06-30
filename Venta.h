@@ -12,7 +12,7 @@ class Venta{
         int dia;
         int cant;
         int monto;
-        int total;
+        double total;
         int cantventas;
     public:
         Venta();
@@ -23,7 +23,7 @@ class Venta{
         void SetDia(int );
         void SetCantidad(int );
         void SetMonto(int );
-        void SetTotal(int );
+        void SetTotal(double );
         void SetCantVentas(int );
 
         int GetAno();
@@ -31,7 +31,7 @@ class Venta{
         int GetDia();
         int GetCantidad();
         int GetMonto();
-        int GetTotal();
+        double GetTotal();
         int GetCantVentas();
 };
 
