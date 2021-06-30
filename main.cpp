@@ -18,9 +18,9 @@ int main(int argc, char** argv) {
         if (lectura) {
             for (std::string linea; getline(lectura,linea) ; ) {
                 std::vector<std::string> datos = ObtenerDatos(linea);
-                if(datos[0]!="reate"){
-                    std::vector<std::string> fecha1=fecha(datos[0],'-');
-                    std::vector<std::string> fecha2=fecha(fecha1[2],' ');
+                if(datos[0] != "reate"){
+                    std::vector<std::string> fecha1 = fecha(datos[0], '-');
+                    std::vector<std::string> fecha2 = fecha(fecha1[2], ' ');
 
                     V.SetAno(stoi(fecha1[0]));
                     V.SetMes(stoi(fecha1[1]));
@@ -34,7 +34,7 @@ int main(int argc, char** argv) {
                 }
                 datos.clear();
             }
-            VentasDia=dia(Ventas);
+            VentasDia = dia(Ventas);
 
             //VENTASDIA ES EL VECTOR CON LAS FECHAS AGRUPADAS
             //PARA VER EL MONTO DE UN DIA ES GETTOTAL
@@ -44,46 +44,70 @@ int main(int argc, char** argv) {
             
             //int prom_ventas=promVentas(VentasDia);
             //std::cout<<"Promedio de las ventas: "<<prom_ventas<<std::endl;
-            for(int i=0; i<int(VentasDia.size()); i++){
+            for(int i = 0; i < int(VentasDia.size()); i++){
                 //std::cout<<VentasDia[i].GetCantVentas()<<"-"<<VentasDia[i].GetDia()<<"-"<<VentasDia[i].GetTotal()<<std::endl;
             }
 
+            /** Regresion lineal **/
             double cant_dias = PromSumCantDias(VentasDia);
-            std::cout<<"El promedio de la sumatoria de la cantidad de dias es: "<< cant_dias << std::endl;
+            std::cout << "El promedio de la sumatoria de la cantidad de dias es: " << cant_dias << std::endl;
 
             double total_ventas = PromSumVentas(VentasDia);
-            std::cout<<"El promedio de la sumatoria de la cantidad de ventas: " << total_ventas << std::endl;
+            std::cout << "El promedio de la sumatoria de la cantidad de ventas: " << total_ventas << std::endl;
 
-            double Sum_Cant_Dias = SumCuadrado(VentasDia,cant_dias);
-            std::cout<<"la sumatoria al cuadrado es: " << Sum_Cant_Dias << std::endl;
+            double Sum_Cant_Dias = SumCuadrado(VentasDia, cant_dias);
+            std::cout << "la sumatoria al cuadrado es: " << Sum_Cant_Dias << std::endl;
 
-            long double Sum_Cant_Ventas = SumCuadradoVentas(VentasDia,total_ventas);
-            std::cout<<"la sumatoria al cuadrado es (Dias): " << Sum_Cant_Ventas << std::endl;
+            long double Sum_Cant_Ventas = SumCuadradoVentas(VentasDia, total_ventas);
+            std::cout << "la sumatoria al cuadrado es (Dias): " << Sum_Cant_Ventas << std::endl;
 
-            double Mult_Sum_DiasVentas = MultSumas(VentasDia, cant_dias,total_ventas);
-            std::cout<<"la sumatoria de la multiplicacion es: " << Mult_Sum_DiasVentas << std::endl;
+            double Mult_Sum_DiasVentas = MultSumas(VentasDia, cant_dias, total_ventas);
+            std::cout << "la sumatoria de la multiplicacion es: " << Mult_Sum_DiasVentas << std::endl;
 
-            double Covar = covarianza(Mult_Sum_DiasVentas,int(VentasDia.size()));
-            std::cout<<"la covarianza es: " << Covar << std::endl;
+            double Covar = covarianza(Mult_Sum_DiasVentas, int(VentasDia.size()));
+            std::cout << "la covarianza es: " << Covar << std::endl;
 
-            double Desv = Desviacion_Estandar(Sum_Cant_Dias,int(VentasDia.size()));
-            std::cout<<"la desviacion estandar de X es: " << Desv << std::endl;
+            double Desv = Desviacion_Estandar(Sum_Cant_Dias, int(VentasDia.size()));
+            std::cout << "la desviacion estandar de X es: " << Desv << std::endl;
 
-            double calculo_B=calculob(Covar,Desv);
-            std::cout<<"B es igual a: " << calculo_B << std::endl;
+            double calculo_B = calculob(Covar, Desv);
+            std::cout << "B es igual a: " << calculo_B << std::endl;
 
-            double calculo_A = calculoa(total_ventas,cant_dias,calculo_B);
-            std::cout<<"A es igual a: "<<calculo_A<<std::endl;
+            double calculo_A = calculoa(total_ventas, cant_dias, calculo_B);
+            std::cout << "A es igual a: " << calculo_A << std::endl;
             
-            printformula(calculo_A,calculo_B);
+            printformula(calculo_A, calculo_B);
 
-            std::cout<<std::endl<<"PROGRAMA EJECUTADO CORRECTAMENTE"<<std::endl;
+            /** Minimos Cuadrados **/
+            std::cout << "MINIMOS CUADRADOS" << std::endl;
+            int Sum_CantDias = SumCantDias(VentasDia);
+            std::cout << "la suma total de los dias(x) es:" << Sum_CantDias << std::endl;
+
+            int cantdias_cuad = CantDiasCuad(VentasDia);
+            std::cout << "el cuadrado de la sumatoria total de los dias es:" << cantdias_cuad << std::endl;
+
+            int dias_cuad = SumCantDiasCuad(VentasDia, Sum_CantDias);
+            std::cout << "la sumatoria al cuadrado de los dias es:" << dias_cuad << std::endl;
+
+            int cant_venta = SumVentas(VentasDia);
+            std::cout << "la suma total de las ventas(y) es:" << cant_venta << std::endl;
+
+            int CantxVenta = SumCantDias_xVentas(VentasDia, Sum_CantDias, cant_venta);
+            std::cout << "la suma total de cantidad de dias por ventas(xy) es:" << CantxVenta << std::endl;
+
+            double resultado = Pendiente(Sum_CantDias, cantdias_cuad, dias_cuad, cant_venta, CantxVenta);
+            std::cout << "la pendiente es:" << resultado << std::endl;
+
+
+
+
+            std::cout << std::endl << "PROGRAMA EJECUTADO CORRECTAMENTE" << std::endl;
         }else{
-            std::cout<<std::endl<<"NO HA INGRESADO NINGUN ARCHIVO VALIDO"<<std::endl;
+            std::cout << std::endl << "NO HA INGRESADO NINGUN ARCHIVO VALIDO" << std::endl;
             Participantes();
         }
     }else{
-        std::cout<<std::endl<<"NO HA INGRESADO NINGUN ARCHIVO"<<std::endl;
+        std::cout << std::endl << "NO HA INGRESADO NINGUN ARCHIVO" << std::endl;
         Participantes();
     }
     return EXIT_SUCCESS;

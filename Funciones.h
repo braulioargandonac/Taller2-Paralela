@@ -27,24 +27,38 @@ std::vector<Venta> dia(std::vector<Venta>);
 
 /*double PromVentas(std::vector<Venta>);*/
 
+/** Minimos Cuadrados **/
+int SumCantDias(std::vector<Venta>);
+
+int CantDiasCuad(std::vector<Venta>);
+
+int SumCantDiasCuad(std::vector<Venta>, int);
+
+int SumVentas(std::vector<Venta>);
+
+int SumCantDias_xVentas(std::vector<Venta>, int, int);
+
+double Pendiente(int, int, int, int, int);
+
+/** Regresion lineal **/
 double PromSumCantDias(std::vector<Venta>);
 
 double PromSumVentas(std::vector<Venta>);
 
-double SumCuadrado(std::vector<Venta>,double);
+double SumCuadrado(std::vector<Venta>, double);
 
-long double SumCuadradoVentas(std::vector<Venta>, double );
+long double SumCuadradoVentas(std::vector<Venta>, double);
 
-double MultSumas(std::vector<Venta>,double ,double );
+double MultSumas(std::vector<Venta>, double, double);
 
-double covarianza (double , int );
+double covarianza (double, int);
 
-double Desviacion_Estandar(double , int );
+double Desviacion_Estandar(double, int);
 
-double calculob(double ,double );
+double calculob(double, double);
 
-double calculoa(double , double , double );
+double calculoa(double, double, double);
 
-void printformula(double , double );
+void printformula(double, double);
 
 #endif // FUNCIONES_H_INCLUDED
