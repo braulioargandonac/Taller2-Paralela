@@ -96,33 +96,33 @@ int CantDiasCuad(std::vector<Venta> Ventas){
     return cont2 * cont2;
 }
 
-int SumCantDiasCuad(std::vector<Venta> Ventas, int cant_dia){
+int SumCantDiasCuad(std::vector<Venta> Ventas){
     int total = 0, aux = 0;
     for(int i=0; i<int(Ventas.size()); i++){
-        aux = pow(cant_dia, 2);
+        aux = pow((i+1), 2);
         total += aux;
     }
     return total;
 }
 
 int SumVentas(std::vector<Venta> Ventas){
-    double total = 0;
+    int total = 0;
     for(int i = 0; i < int(Ventas.size()); i++){
         total = total + Ventas[i].GetCantVentas();
     }
     return total;
 }
 
-int SumCantDias_xVentas(std::vector<Venta> Ventas, int sum_dias, int cant_dias){
+int SumCantDias_xVentas(std::vector<Venta> Ventas){
     int total = 0, aux = 0;
     for(int i = 0; i < int(Ventas.size()); i++){
-        aux = sum_dias * cant_dias;
+        aux = (i+1) * Ventas[i].GetCantVentas();
         total += aux;
     }
     return total;
 }
 
-double Pendiente(int Sum_CantDias, int cantdias_cuad, int dias_cuad, int cant_venta, int CantxVenta){
+double Pendiente(double Sum_CantDias, double cantdias_cuad, double dias_cuad, double cant_venta, double CantxVenta){
     double M = 0;
     M = (CantxVenta - (((Sum_CantDias) * (cant_venta)) / 199)) / (cantdias_cuad - (dias_cuad) / 199);
     return M;
@@ -220,4 +220,58 @@ double calculoa(double prom1, double prom2, double calculob){
 
 void printformula(double A, double B){
     std::cout << "La formula para la regresion lineal es: " << std::endl << "Y = " << A << " + " << B <<"* X (Cantidad de dias)" << std::endl;
+}
+
+/** Funcion exponencial **/
+
+
+//Sum ( X*Ln(y) )
+double SumCantLN(std::vector<Venta>Ventas){
+    double contsum = 0;
+    double aux = 0;
+    for(int i = 0; i < int(Ventas.size()); i++){
+        aux = (i + 1) * log(Ventas[i].GetCantVentas());
+        contsum = contsum + aux;
+    }
+    return contsum;
+}
+
+//Sum (X) * Sum ( Ln(Y) )
+double SumCantSumLN(std::vector<Venta>Ventas){
+    double aux = 0;
+    int aux1 = 0;
+    for(int i = 0; i < int(Ventas.size()); i++){
+        aux = aux + log(Ventas[i].GetCantVentas());
+        aux1 = aux1 + (i+1);
+    }
+    return aux*aux1;
+}
+
+//Prom Ln(Y)
+double PromCantVentasLn(std::vector<Venta> Ventas){
+    double total = 0;
+    for(int i = 0; i < int(Ventas.size()); i++){
+        total = total + log(Ventas[i].GetCantVentas());
+    }
+    total = total / int(Ventas.size());
+    return total;
+}
+
+//B de =>  Y = A * e^BX
+double ExpB(std::vector<Venta> Venta){
+    double num=0, den=0;
+    num=(int(Venta.size()) * SumCantLN(Venta)) - SumCantSumLN(Venta);
+    den=(int(Venta.size()) * SumCantDiasCuad(Venta)) - CantDiasCuad(Venta); 
+    return num/den;
+}
+
+//Prom(Ln(Y)) - B * Prom X
+double ExpA(std::vector<Venta> Venta){
+    double resultado=0;
+    resultado=PromCantVentasLn(Venta) - (ExpB(Venta) * PromSumVentas(Venta));
+    return exp(resultado);
+}
+
+void printformula2(double A, double B){
+    std::cout << "La formula para la funcion exponencial es: " << std::endl << "Y = " << A << " * e^( " << B <<" * (X = Cantidad de dias))" << std::endl;
 }

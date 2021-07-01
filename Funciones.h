@@ -32,13 +32,13 @@ int SumCantDias(std::vector<Venta>);
 
 int CantDiasCuad(std::vector<Venta>);
 
-int SumCantDiasCuad(std::vector<Venta>, int);
+int SumCantDiasCuad(std::vector<Venta>);
 
 int SumVentas(std::vector<Venta>);
 
-int SumCantDias_xVentas(std::vector<Venta>, int, int);
+int SumCantDias_xVentas(std::vector<Venta>);
 
-double Pendiente(int, int, int, int, int);
+double Pendiente(double, double, double, double, double);
 
 double intercepcion(double, double, double);
 
@@ -64,5 +64,19 @@ double calculob(double, double);
 double calculoa(double, double, double);
 
 void printformula(double, double);
+
+/** Funcion Exponencial **/
+
+double SumCantLN(std::vector<Venta>);
+
+double SumCantSumLN(std::vector<Venta>);
+
+double PromCantVentasLn(std::vector<Venta>);
+
+double ExpB(std::vector<Venta>);
+
+double ExpA(std::vector<Venta>);
+
+void printformula2(double, double);
 
 #endif // FUNCIONES_H_INCLUDED

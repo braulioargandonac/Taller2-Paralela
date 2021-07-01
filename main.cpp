@@ -86,13 +86,13 @@ int main(int argc, char** argv) {
             int cantdias_cuad = CantDiasCuad(VentasDia);
             std::cout << "el cuadrado de la sumatoria total de los dias es:" << cantdias_cuad << std::endl;
 
-            int dias_cuad = SumCantDiasCuad(VentasDia, Sum_CantDias);
+            int dias_cuad = SumCantDiasCuad(VentasDia);
             std::cout << "la sumatoria al cuadrado de los dias es:" << dias_cuad << std::endl;
 
             int cant_venta = SumVentas(VentasDia);
             std::cout << "la suma total de las ventas(y) es:" << cant_venta << std::endl;
 
-            int CantxVenta = SumCantDias_xVentas(VentasDia, Sum_CantDias, cant_venta);
+            int CantxVenta = SumCantDias_xVentas(VentasDia);
             std::cout << "la suma total de cantidad de dias por ventas(xy) es:" << CantxVenta << std::endl;
 
             double pendiente = Pendiente(Sum_CantDias, cantdias_cuad, dias_cuad, cant_venta, CantxVenta);
@@ -102,6 +102,8 @@ int main(int argc, char** argv) {
             std::cout << "El intercepto es: " << intercepto << std::endl;
 
             MostrarMinimo(pendiente, intercepto);
+
+            printformula2(ExpA(VentasDia), ExpB(VentasDia));
 
             std::cout << std::endl << "PROGRAMA EJECUTADO CORRECTAMENTE" << std::endl;
         }else{
