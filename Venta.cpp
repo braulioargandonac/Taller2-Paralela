@@ -13,32 +13,32 @@ Venta::~Venta(){
 
 void Venta::SetAno(int ano1){
     //2020-11-11 15:07:32.361
-    ano=ano1;
+    ano = ano1;
 }
 
 
 void Venta::SetMes(int mes1){
-    mes=mes1;
+    mes = mes1;
 }
 
 void Venta::SetDia(int dia1){
-    dia=dia1;
+    dia = dia1;
 }
 
 void Venta::SetCantidad(int cant1){
-    cant=cant1;
+    cant = cant1;
 }
 
 void Venta::SetMonto(int monto1){
-    monto=monto1;
+    monto = monto1;
 }
 
 void Venta::SetTotal(double monto){
-    total=monto;
+    total = monto;
 }
 
 void Venta::SetCantVentas(int a){
-    cantventas=a;
+    cantventas = a;
 }
 
 

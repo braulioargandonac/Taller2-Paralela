@@ -18,13 +18,13 @@ class Venta{
         Venta();
         ~Venta();
 
-        void SetAno(int );
-        void SetMes(int );
-        void SetDia(int );
-        void SetCantidad(int );
-        void SetMonto(int );
-        void SetTotal(double );
-        void SetCantVentas(int );
+        void SetAno(int);
+        void SetMes(int);
+        void SetDia(int);
+        void SetCantidad(int);
+        void SetMonto(int);
+        void SetTotal(double);
+        void SetCantVentas(int);
 
         int GetAno();
         int GetMes();

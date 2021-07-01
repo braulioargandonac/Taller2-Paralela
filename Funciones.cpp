@@ -13,7 +13,7 @@ std::vector<std::string> ObtenerDatos(std::string fila){
     std::string item;
 
     while (std::getline(ss, item, ';')){
-        std::string dato=item.c_str();
+        std::string dato = item.c_str();
         dato.erase(dato.begin());
         dato.pop_back();
         arreglo.push_back(dato);
@@ -29,7 +29,7 @@ std::vector<std::string> fecha(std::string fecha1, char del){
     std::string item;
 
     while (std::getline(ss, item, del)){
-        std::string dato=item.c_str();
+        std::string dato = item.c_str();
         arreglo.push_back(dato);
     }
 
@@ -38,38 +38,38 @@ std::vector<std::string> fecha(std::string fecha1, char del){
 
 std::vector<Venta> dia(std::vector<Venta> Ventas){
     std::vector<Venta> V;
-    int monto=0;
-    int cont=1;
-    for(int i=0; i<=int(Ventas.size()); i++){
-        if(i!=0){
-            if(Ventas[i].GetAno()==Ventas[i-1].GetAno()){
-                if(Ventas[i].GetMes()==Ventas[i-1].GetMes()){
-                    if(Ventas[i].GetDia()==Ventas[i-1].GetDia()){
-                        monto=monto+Ventas[i].GetMonto()*Ventas[i].GetCantidad();
+    int monto = 0;
+    int cont = 1;
+    for(int i = 0; i <= int(Ventas.size()); i++){
+        if(i != 0){
+            if(Ventas[i].GetAno() == Ventas[i-1].GetAno()){
+                if(Ventas[i].GetMes() == Ventas[i-1].GetMes()){
+                    if(Ventas[i].GetDia() == Ventas[i-1].GetDia()){
+                        monto = monto+Ventas[i].GetMonto()*Ventas[i].GetCantidad();
                         cont++;
                     }else{
                         Ventas[i-1].SetTotal(monto);
                         Ventas[i-1].SetCantVentas(cont);
-                        monto=Ventas[i].GetMonto();
-                        cont=1;
+                        monto = Ventas[i].GetMonto();
+                        cont = 1;
                         V.push_back(Ventas[i-1]);
                     }
                 }else{
                     Ventas[i-1].SetTotal(monto);
                     Ventas[i-1].SetCantVentas(cont);
-                    monto=Ventas[i].GetMonto();
-                    cont=1;
+                    monto = Ventas[i].GetMonto();
+                    cont = 1;
                     V.push_back(Ventas[i-1]);
                 }
             }else{
                 Ventas[i-1].SetTotal(monto);
                 Ventas[i-1].SetCantVentas(cont);
-                monto=Ventas[i].GetMonto();
-                cont=1;
+                monto = Ventas[i].GetMonto();
+                cont = 1;
                 V.push_back(Ventas[i-1]);
             }
         }else{
-            monto=Ventas[i].GetMonto()*Ventas[i].GetCantidad();
+            monto = Ventas[i].GetMonto()*Ventas[i].GetCantidad();
         }
     }
     return V;
@@ -128,14 +128,14 @@ double Pendiente(double Sum_CantDias, double cantdias_cuad, double dias_cuad, do
     return M;
 }
 
-double intercepcion(double pendiente, double cant_dias, double total_ventas){
+double intercepcion(double CantxVenta, double Sum_CantDias, double cantdias_cuad, double dias_cuad, double cant_venta){
     double b = 0;
-    b = total_ventas - (pendiente * cant_dias);
+    b = ((199 * CantxVenta) - (Sum_CantDias * cant_venta)) / ((199 * dias_cuad) - cantdias_cuad);
     return b;
 }
 
 void MostrarMinimo(double pendiente, double intercepto){
-    std::cout << "La formula para los minimos cuadrados es: " << "Y = " << pendiente << " * (Cantidad de dias)" << " - " << intercepto << std::endl;
+    std::cout << "La formula para los minimos cuadrados es: " << std::endl << "Y = " << pendiente << " * (Cantidad de dias)" << " - " << intercepto << std::endl;
 }
 
 /** Regresion lineal **/
@@ -244,7 +244,7 @@ double SumCantSumLN(std::vector<Venta>Ventas){
         aux = aux + log(Ventas[i].GetCantVentas());
         aux1 = aux1 + (i+1);
     }
-    return aux*aux1;
+    return aux * aux1;
 }
 
 //Prom Ln(Y)
@@ -259,19 +259,46 @@ double PromCantVentasLn(std::vector<Venta> Ventas){
 
 //B de =>  Y = A * e^BX
 double ExpB(std::vector<Venta> Venta){
-    double num=0, den=0;
-    num=(int(Venta.size()) * SumCantLN(Venta)) - SumCantSumLN(Venta);
-    den=(int(Venta.size()) * SumCantDiasCuad(Venta)) - CantDiasCuad(Venta); 
-    return num/den;
+    double num = 0, den = 0;
+    num = (int(Venta.size()) * SumCantLN(Venta)) - SumCantSumLN(Venta);
+    den = (int(Venta.size()) * SumCantDiasCuad(Venta)) - CantDiasCuad(Venta);
+    return num / den;
 }
 
 //Prom(Ln(Y)) - B * Prom X
 double ExpA(std::vector<Venta> Venta){
-    double resultado=0;
-    resultado=PromCantVentasLn(Venta) - (ExpB(Venta) * PromSumVentas(Venta));
+    double resultado = 0;
+    resultado = PromCantVentasLn(Venta) - (ExpB(Venta) * PromSumVentas(Venta));
     return exp(resultado);
 }
 
 void printformula2(double A, double B){
-    std::cout << "La formula para la funcion exponencial es: " << std::endl << "Y = " << A << " * e^( " << B <<" * (X = Cantidad de dias))" << std::endl;
+    std::cout << "La formula para la funcion exponencial es: " << std::endl << "Y = " << A << " * e^( " << B <<" * (Cantidad de dias))" << std::endl;
+}
+
+void funciones(std::vector<Venta> VentasDia){
+    /** Regresion lineal **/
+    double cant_dias = PromSumCantDias(VentasDia);
+    double total_ventas = PromSumVentas(VentasDia);
+    double Sum_Cant_Dias = SumCuadrado(VentasDia, cant_dias);
+    double Mult_Sum_DiasVentas = MultSumas(VentasDia, cant_dias, total_ventas);
+    double Covar = covarianza(Mult_Sum_DiasVentas, int(VentasDia.size()));
+    double Desv = Desviacion_Estandar(Sum_Cant_Dias, int(VentasDia.size()));
+    double calculo_B = calculob(Covar, Desv);
+    double calculo_A = calculoa(total_ventas, cant_dias, calculo_B);
+
+
+    /** Minimos Cuadrados **/
+    int Sum_CantDias = SumCantDias(VentasDia);
+    int cantdias_cuad = CantDiasCuad(VentasDia);
+    int dias_cuad = SumCantDiasCuad(VentasDia);
+    int cant_venta = SumVentas(VentasDia);
+    int CantxVenta = SumCantDias_xVentas(VentasDia);
+    double pendiente = Pendiente(Sum_CantDias, cantdias_cuad, dias_cuad, cant_venta, CantxVenta);
+    double intercepto = intercepcion(CantxVenta, Sum_CantDias, cantdias_cuad, dias_cuad, cant_venta);
+
+
+    printformula(calculo_A, calculo_B);
+    MostrarMinimo(pendiente, intercepto);
+    printformula2(ExpA(VentasDia), ExpB(VentasDia));
 }
